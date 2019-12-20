@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/starwarsListFragment">
+
+    <fragment android:id="@+id/starwarsListFragment"
+              android:name="com.bbrustol.maytheforcebewithbruno.presentation.list_navigation.starwarsPeopleList.StarwarsPeopleListFragment"
+              android:label="fragment_starwars_list"
+              tools:layout="@layout/fragment_starwars_list">
+
+        <action
+                android:id="@+id/actionStarwarsListToDetail"
+                app:destination="@id/starwarsDetailFragment"
+                app:enterAnim="@anim/fade_in"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/fade_out"
+        />
+    </fragment>
+
+    <fragment android:id="@+id/starwarsDetailFragment"
+              android:name="com.bbrustol.maytheforcebewithbruno.presentation.list_navigation.detail.StarwarsPeopleDetailFragment"
+              android:label="fragment_meal_detail"
+              tools:layout="@layout/fragment_starwars_detail"/>
+
+
+</navigation>
