@@ -16,31 +16,28 @@ class StarwarsPeopleDetailViewModel(
 
     fun format(result: Result): ArrayList<ResultDetails> {
 
-        val temp = arrayListOf<ResultDetails>()
+        val arResultDetails= arrayListOf<ResultDetails>()
 
-        temp.add(ResultDetails("name", result.name))
-        temp.add(ResultDetails("birthYear", result.birth_year))
-        temp.add(ResultDetails("eyeColor", result.eye_color))
-        temp.add(ResultDetails("gender", result.gender))
-        temp.add(ResultDetails("hairColor", result.hair_color))
-        temp.add(ResultDetails("height", result.height))
-        temp.add(ResultDetails("homeworld", result.homeworld))
-        temp.add(ResultDetails("mass", result.mass))
-        temp.add(ResultDetails("skinColor", result.skin_color))
+        if (!result.name.isNullOrBlank()) { arResultDetails.add(ResultDetails("name", result.name)) }
+        if (!result.birth_year.isNullOrBlank()) { arResultDetails.add(ResultDetails("birthYear", result.birth_year)) }
+        if (!result.eye_color.isNullOrBlank()) { arResultDetails.add(ResultDetails("eyeColor", result.eye_color)) }
+        if (!result.gender.isNullOrBlank()) {  arResultDetails.add(ResultDetails("gender", result.gender)) }
+        if (!result.hair_color.isNullOrBlank()) { arResultDetails.add(ResultDetails("hairColor", result.hair_color)) }
+        if (!result.height.isNullOrBlank()) { arResultDetails.add(ResultDetails("height", result.height)) }
+        if (!result.homeworld.isNullOrBlank()) { arResultDetails.add(ResultDetails("homeworld", result.homeworld)) }
+        if (!result.mass.isNullOrBlank()) { arResultDetails.add(ResultDetails("mass", result.mass)) }
+        if (!result.skin_color.isNullOrBlank()) { arResultDetails.add(ResultDetails("skinColor", result.skin_color)) }
 
         analitycs()
 
-        return temp
+        return arResultDetails
     }
 
-
     private fun analitycs() {
-
         coroutineScope.launch {
             starwarsBusiness.callAnalytics(BuildConfig.WEBHOOK_URL)
         }
     }
-
 
     override fun tryAgain() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
