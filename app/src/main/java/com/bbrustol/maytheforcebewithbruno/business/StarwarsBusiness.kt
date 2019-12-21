@@ -8,8 +8,8 @@ import com.bbrustol.maytheforcebewithbruno.data.provider.StarwarsListProvider
 
 class StarwarsBusiness(private val starwarsPeopleListProvider: StarwarsListProvider) {
 
-    suspend fun fetchStarwarswPeoplelist(page: Int): Resource<StarwarsPeopleResponse> {
-        return when (val response: Resource<StarwarsPeopleResponse> = starwarsPeopleListProvider.fetchStarwarsPeopleList(page)) {
+    suspend fun fetchStarwarswPeoplelist(page: Int, search: String): Resource<StarwarsPeopleResponse> {
+        return when (val response: Resource<StarwarsPeopleResponse> = starwarsPeopleListProvider.fetchStarwarsPeopleList(page, search)) {
             is Success -> Success(response.data)
             is Failure -> Failure(response.data, response.networkState)
         }

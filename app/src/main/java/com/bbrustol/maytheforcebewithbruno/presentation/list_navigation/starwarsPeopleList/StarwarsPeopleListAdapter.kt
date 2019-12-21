@@ -1,6 +1,5 @@
 package com.bbrustol.maytheforcebewithbruno.presentation.list_navigation.starwarsPeopleList
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil.inflate
@@ -16,11 +15,8 @@ class StarwarsPeopleListAdapter(val onItemClickAction: (Result) -> Unit) : ListA
     StarwarsPeopleListDiffCallback()
 ) {
 
-    private lateinit var myContext: Context
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StarwarsPeopleListViewHandler {
 
-        myContext = parent.context
         val layoutInflater = LayoutInflater.from(parent.context)
 
         val itemBinding = inflate<ItemCardStarwarsListBinding>(

@@ -14,7 +14,7 @@ class StarwarsListProvider(private val service: StarwarsListService) {
         private val TAG = this::class.java.simpleName
     }
 
-    suspend fun fetchStarwarsPeopleList(page: Int) = callAsync { service.fetchStarwarsPeopleListAsync(page) }.await()
+    suspend fun fetchStarwarsPeopleList(page: Int, search: String) = callAsync { service.fetchStarwarsPeopleListAsync(page, search) }.await()
 
     suspend fun callAnalytics(webhookUrl: String) = withContext(Dispatchers.IO) {
         try {

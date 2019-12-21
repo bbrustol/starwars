@@ -8,5 +8,5 @@ import retrofit2.http.Query
 
 interface StarwarsListService {
     @GET("people/")
-    fun fetchStarwarsPeopleListAsync(@Query("page") offset: Int): Deferred<Response<StarwarsPeopleResponse>>
+    fun fetchStarwarsPeopleListAsync(@Query("page") offset: Int, @Query("search") search: String): Deferred<Response<StarwarsPeopleResponse>>
 }

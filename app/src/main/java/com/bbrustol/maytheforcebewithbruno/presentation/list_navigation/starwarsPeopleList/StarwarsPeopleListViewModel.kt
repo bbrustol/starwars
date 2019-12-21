@@ -19,18 +19,27 @@ class StarwarsPeopleListViewModel(
     private val coroutineScope: CoroutineScope
 ) : BaseViewModel(application) {
 
-    val dataReceived: MutableLiveData<List<Result>> = MutableLiveData()
-    val listVisibility = MutableLiveData<Int>().apply { value = GONE }
-    val flagFirstLoad = MutableLiveData<Boolean>().apply { value = false }
     private var tempData: ArrayList<Result> = arrayListOf()
     private var offset = 1
     private var maxCount : Int = 11
 
-    fun start() {
-        if (!flagFirstLoad.value!! || (offset * 10 < maxCount)) {
+    val dataReceived: MutableLiveData<List<Result>> = MutableLiveData()
+    val listVisibility = MutableLiveData<Int>().apply { value = GONE }
+    val flagFirstLoad = MutableLiveData<Boolean>().apply { value = false }
+    var receivedSearch = MutableLiveData<String>().apply { value = "" }
+
+    fun start(search: String, flagClean: Boolean = false) {
+        if (flagClean || !flagFirstLoad.value!! || (offset * 10 < maxCount)) {
+
             configVisibility(ViewState.LOADING)
+            receivedSearch.value = search
+            if (flagClean) {
+                offset = 1
+                tempData = arrayListOf()
+            }
+
             coroutineScope.launch {
-                val resource = starwarsBusiness.fetchStarwarswPeoplelist(offset)
+                val resource = starwarsBusiness.fetchStarwarswPeoplelist(offset, search)
                 resource.handle(success(), failure())
             }
         }
@@ -64,7 +73,7 @@ class StarwarsPeopleListViewModel(
     }
 
     override fun tryAgain() {
-        start()
+        start("", true)
     }
 
 }
