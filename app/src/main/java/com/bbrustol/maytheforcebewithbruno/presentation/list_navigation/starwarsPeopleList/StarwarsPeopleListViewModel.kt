@@ -3,6 +3,7 @@ package com.bbrustol.maytheforcebewithbruno.presentation.list_navigation.starwar
 import android.app.Application
 import android.view.View.GONE
 import androidx.lifecycle.MutableLiveData
+import com.bbrustol.maytheforcebewithbruno.BuildConfig
 import com.bbrustol.maytheforcebewithbruno.business.StarwarsBusiness
 import com.bbrustol.maytheforcebewithbruno.data.entity.Result
 import com.bbrustol.maytheforcebewithbruno.data.entity.StarwarsPeopleResponse
@@ -27,6 +28,13 @@ class StarwarsPeopleListViewModel(
     val listVisibility = MutableLiveData<Int>().apply { value = GONE }
     val flagFirstLoad = MutableLiveData<Boolean>().apply { value = false }
     var receivedSearch = MutableLiveData<String>().apply { value = "" }
+
+    fun callAnalytics(toJson: String) {
+        coroutineScope.launch {
+            val strFormat = "?content_json=$toJson"
+            starwarsBusiness.callAnalytics(BuildConfig.WEBHOOK_URL + strFormat)
+        }
+    }
 
     fun start(search: String, flagClean: Boolean = false) {
         if (flagClean || !flagFirstLoad.value!! || (offset * 10 < maxCount)) {

@@ -17,6 +17,7 @@ import com.bbrustol.maytheforcebewithbruno.databinding.FragmentStarwarsListBindi
 import com.bbrustol.maytheforcebewithbruno.utils.Constants
 import com.bbrustol.maytheforcebewithbruno.utils.hideKeyboard
 import com.bbrustol.maytheforcebewithbruno.utils.loadMore
+import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.fragment_starwars_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -52,14 +53,20 @@ class StarwarsPeopleListFragment : Fragment() {
     private fun initializeRecyclerView(view: View) {
         dataBinding.rvStarwarsPeopleList.layoutManager = LinearLayoutManager(context)
 
-        val clickAction = { result: Result ->
+        val rvClickAction = { result: Result ->
             this.hideKeyboard()
             val bundle = Bundle().apply { putParcelable(Constants.EXTRA_STARWARS_PEOPLE_SELECTED_RESULT, result) }
             view.findNavController().navigate(R.id.actionStarwarsListToDetail, bundle)
         }
 
+        val favoriteClickAction = { result: Result ->
+            val response = Moshi.Builder().build().adapter(Result::class.java).toJson(result)
+
+            viewModel.callAnalytics(response)
+        }
+
         //recycler
-        dataBinding.rvStarwarsPeopleList.adapter = StarwarsPeopleListAdapter(clickAction)
+        dataBinding.rvStarwarsPeopleList.adapter = StarwarsPeopleListAdapter(rvClickAction, favoriteClickAction)
 
         //Searchview
         dataBinding.svStarwarsPeopleList.setOnQueryTextListener(object : OnQueryTextListener,

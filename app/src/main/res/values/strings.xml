@@ -9,4 +9,5 @@
     </string>
     <string name="refresh">Refresh</string>
     <string name="search_people_list">Search People Here</string>
+    <string name="content_description_favorite_btn">favorite</string>
 </resources>

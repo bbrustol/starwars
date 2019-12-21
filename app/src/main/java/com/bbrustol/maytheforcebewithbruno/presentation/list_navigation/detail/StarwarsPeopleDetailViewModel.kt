@@ -9,10 +9,7 @@ import com.bbrustol.maytheforcebewithbruno.presentation.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class StarwarsPeopleDetailViewModel(
-    private val starwarsBusiness: StarwarsBusiness,
-    application: Application,
-    private val coroutineScope: CoroutineScope) : BaseViewModel(application) {
+class StarwarsPeopleDetailViewModel(application: Application) : BaseViewModel(application) {
 
     fun format(result: Result): ArrayList<ResultDetails> {
 
@@ -28,16 +25,9 @@ class StarwarsPeopleDetailViewModel(
         if (!result.mass.isNullOrBlank()) { arResultDetails.add(ResultDetails("mass", result.mass)) }
         if (!result.skin_color.isNullOrBlank()) { arResultDetails.add(ResultDetails("skinColor", result.skin_color)) }
 
-        analitycs()
-
         return arResultDetails
     }
 
-    private fun analitycs() {
-        coroutineScope.launch {
-            starwarsBusiness.callAnalytics(BuildConfig.WEBHOOK_URL)
-        }
-    }
 
     override fun tryAgain() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

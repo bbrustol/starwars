@@ -9,5 +9,5 @@ import org.koin.dsl.module.module
 val viewModelModule = module {
     viewModel { StarwarsPeopleListViewModel(get(), get(), UI) }
 
-    single { StarwarsPeopleDetailViewModel(get(),get(), UI) }
+    single { StarwarsPeopleDetailViewModel(get()) }
 }
