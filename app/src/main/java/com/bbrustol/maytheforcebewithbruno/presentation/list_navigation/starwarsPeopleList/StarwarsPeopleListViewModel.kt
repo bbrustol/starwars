@@ -1,9 +1,9 @@
 package com.bbrustol.maytheforcebewithbruno.presentation.list_navigation.starwarsPeopleList
 
 import android.app.Application
+import android.util.Log
 import android.view.View.GONE
 import androidx.lifecycle.MutableLiveData
-import com.bbrustol.maytheforcebewithbruno.BuildConfig
 import com.bbrustol.maytheforcebewithbruno.business.StarwarsBusiness
 import com.bbrustol.maytheforcebewithbruno.data.entity.Result
 import com.bbrustol.maytheforcebewithbruno.data.entity.StarwarsPeopleResponse
@@ -24,6 +24,7 @@ class StarwarsPeopleListViewModel(
     private var offset = 1
     private var maxCount : Int = 11
 
+
     val dataReceived: MutableLiveData<List<Result>> = MutableLiveData()
     val listVisibility = MutableLiveData<Int>().apply { value = GONE }
     val flagFirstLoad = MutableLiveData<Boolean>().apply { value = false }
@@ -31,8 +32,8 @@ class StarwarsPeopleListViewModel(
 
     fun callAnalytics(toJson: String) {
         coroutineScope.launch {
-            val strFormat = "?content_json=$toJson"
-            starwarsBusiness.callAnalytics(BuildConfig.WEBHOOK_URL + strFormat)
+            val resource =  starwarsBusiness.callAnalytics(toJson)
+            resource.handle(successAnalytics(), failureAnalytics())
         }
     }
 
@@ -75,6 +76,10 @@ class StarwarsPeopleListViewModel(
         }
     }
 
+    private fun successAnalytics(): Success<String>.() -> Unit = { Log.e(TAG,"Success Analytics") }
+
+    private fun failureAnalytics(): Failure.() -> Unit = { Log.e(TAG,"Error Analytics") }
+
     override fun configVisibility(viewState: ViewState) {
         super.configVisibility(viewState)
         listVisibility.value = setupViewState(viewState).showData
@@ -82,6 +87,10 @@ class StarwarsPeopleListViewModel(
 
     override fun tryAgain() {
         start("", true)
+    }
+
+    companion object {
+        private val TAG = this::class.java.simpleName
     }
 
 }

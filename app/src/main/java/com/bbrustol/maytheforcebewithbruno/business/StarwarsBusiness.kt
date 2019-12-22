@@ -15,7 +15,10 @@ class StarwarsBusiness(private val starwarsPeopleListProvider: StarwarsListProvi
         }
     }
 
-    suspend fun callAnalytics(webhookUrl: String): String {
-        return starwarsPeopleListProvider.callAnalytics(webhookUrl)
+    suspend fun callAnalytics(webhookUrl: String): Resource<String> {
+        return when (val response: Resource<String> = starwarsPeopleListProvider.callAnalytics(webhookUrl)) {
+            is Success -> Success(response.data)
+            is Failure -> Failure(response.data, response.networkState)
+        }
     }
 }

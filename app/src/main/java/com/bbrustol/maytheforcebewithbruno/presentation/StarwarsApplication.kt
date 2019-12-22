@@ -18,7 +18,6 @@ class StarwarsApplication : Application() {
                 provideModule,
                 serviceModule,
                 networkModule,
-                urlModule,
                 systemModule
             )
         )

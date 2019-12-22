@@ -52,9 +52,9 @@ class ListViewModelTest {
 
         viewModel.dataReceived.observeForever(observerSuccess)
 
-        coEvery { business.fetchStarwarswPeoplelist(any()) } returns Success(response)
+        coEvery { business.fetchStarwarswPeoplelist(any(), any()) } returns Success(response)
 
-        viewModel.start()
+        viewModel.start("")
 
         verify(exactly = 1) { observerSuccess.onChanged(response.results) }
     }

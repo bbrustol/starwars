@@ -4,5 +4,5 @@ import com.bbrustol.maytheforcebewithbruno.data.provider.StarwarsListProvider
 import org.koin.dsl.module.module
 
 val provideModule = module(override = true) {
-    factory { StarwarsListProvider(get()) }
+    factory { StarwarsListProvider(get(), get()) }
 }

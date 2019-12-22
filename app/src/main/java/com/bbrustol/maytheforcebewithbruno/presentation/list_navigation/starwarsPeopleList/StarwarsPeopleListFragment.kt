@@ -61,7 +61,6 @@ class StarwarsPeopleListFragment : Fragment() {
 
         val favoriteClickAction = { result: Result ->
             val response = Moshi.Builder().build().adapter(Result::class.java).toJson(result)
-
             viewModel.callAnalytics(response)
         }
 

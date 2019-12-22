@@ -23,7 +23,7 @@ android {
 
         buildConfigField("String", "BASE_URL", "\"https://swapi.co/api/\"")
 
-        buildConfigField("String","WEBHOOK_URL","\"http://webhook.site/4b1172d2-7f23-4015-a709-60a7199477bd\"")
+        buildConfigField("String","WEBHOOK_URL","\"https://webhook.site/3e325317-3d78-4391-ba6b-ae404e39eb97/\"")
     }
 
     buildTypes {

@@ -14,11 +14,10 @@ import com.bbrustol.maytheforcebewithbruno.databinding.ItemCardStarwarsListBindi
 class StarwarsPeopleListAdapter(
     val onItemRvClickAction: (Result) -> Unit,
     val onItemfavoriteClickAction: (Result) -> Unit
+
 ) : ListAdapter<Result, StarwarsPeopleListAdapter.StarwarsPeopleListViewHandler>(
     StarwarsPeopleListDiffCallback()
 ) {
-
-    private var flagClick = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StarwarsPeopleListViewHandler {
 
@@ -36,10 +35,11 @@ class StarwarsPeopleListAdapter(
 
     inner class StarwarsPeopleListViewHandler(private val binding: ItemCardStarwarsListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(result: Result) = with(binding) {
-            item = result
-            isFavCheck = false
-            root.setOnClickListener { onItemRvClickAction(result) }
+            var flagClick = false
 
+            item = result
+            isFavCheck = flagClick
+            root.setOnClickListener { onItemRvClickAction(result) }
 
             imgbtnFavorite.setOnClickListener {
                 onItemfavoriteClickAction(result)

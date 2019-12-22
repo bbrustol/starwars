@@ -17,8 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
-        android:networkSecurityConfig="@xml/network_security_config"
-        >
+        android:networkSecurityConfig="@xml/network_security_config">
         <activity android:name=".presentation.list_navigation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

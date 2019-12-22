@@ -33,9 +33,9 @@ class StarwarsListBusinessTest {
     @Test
     fun shouldBeRetrieveFromRemote() = runBlocking {
 
-        coEvery { remoteProvider.fetchStarwarsPeopleList(any()) } returns Success(response)
+        coEvery { remoteProvider.fetchStarwarsPeopleList(any(), any()) } returns Success(response)
 
-        val fetch = business.fetchStarwarswPeoplelist(0)
+        val fetch = business.fetchStarwarswPeoplelist(0, "")
 
         fetch.handle({ assertEquals(response, data) })
     }
@@ -44,9 +44,9 @@ class StarwarsListBusinessTest {
     @Test
     fun shouldBeErrorFromRemote() = runBlocking {
 
-        coEvery { remoteProvider.fetchStarwarsPeopleList(any()) } returns Failure(Error(CATEGORY))
+        coEvery { remoteProvider.fetchStarwarsPeopleList(any(), any()) } returns Failure(Error(CATEGORY))
 
-        val fetch = business.fetchStarwarswPeoplelist(0)
+        val fetch = business.fetchStarwarswPeoplelist(0, "")
 
         fetch.handle({ fail() }, { assertEquals(CATEGORY, data.message) })
     }
@@ -54,9 +54,9 @@ class StarwarsListBusinessTest {
     @Test
     fun shouldBeRetrieveResult() = runBlocking {
 
-        coEvery { remoteProvider.fetchStarwarsPeopleList(any()) } returns Success(response)
+        coEvery { remoteProvider.fetchStarwarsPeopleList(any(), any()) } returns Success(response)
 
-        val fetch = business.fetchStarwarswPeoplelist(0)
+        val fetch = business.fetchStarwarswPeoplelist(0, "")
 
         fetch.handle({
             assertEquals(result, data.results[0])
@@ -67,13 +67,13 @@ class StarwarsListBusinessTest {
     @Test
     fun shouldBeRetrieveErrorList() = runBlocking {
 
-        coEvery { remoteProvider.fetchStarwarsPeopleList(any()) } returns Failure(
+        coEvery { remoteProvider.fetchStarwarsPeopleList(any(), any()) } returns Failure(
             Error(
                 DataMock.ILLEGAL_ARGUMENT
             )
         )
 
-        val fetch = business.fetchStarwarswPeoplelist(0)
+        val fetch = business.fetchStarwarswPeoplelist(0, "")
 
         fetch.handle({ fail() }, { assertEquals(DataMock.ILLEGAL_ARGUMENT, data.message) })
     }
@@ -81,13 +81,13 @@ class StarwarsListBusinessTest {
     @Test
     fun shouldBeRetrieveErrorWhenFetchList() = runBlocking {
 
-        coEvery { remoteProvider.fetchStarwarsPeopleList(any()) } returns Failure(
+        coEvery { remoteProvider.fetchStarwarsPeopleList(any(), any()) } returns Failure(
             Error(
                 DataMock.ILLEGAL_ARGUMENT
             )
         )
 
-        val fetch = business.fetchStarwarswPeoplelist(0)
+        val fetch = business.fetchStarwarswPeoplelist(0, "")
 
         fetch.handle({ fail() }, { assertEquals(DataNotAvailable().javaClass, this.networkState.javaClass) })
     }
